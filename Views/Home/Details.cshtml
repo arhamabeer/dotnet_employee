@@ -1,0 +1,20 @@
+﻿@model HomeDetailsViewModel
+@{
+    var _photo = "~/images/" + (Model.data.photoPath ?? "/dp.jpg");
+}
+
+    <div class="card" style="width: 18rem;">
+    <h4 class="card-title">@Model.data.name</h4>
+
+    <img src="@_photo" class="card-img-top employee-card-img" alt="..." asp-append-version="true">
+  <div class="card-body">
+        <h5 class="card-text">id: @Model.data.id</h5>
+        <h5 class="card-text">email: @Model.data.email</h5>
+        <h5 class="card-text">department: @Model.data.department</h5>
+
+        <a asp-controller="home" asp-action="AllEmployees" class="btn btn-primary">Back</a>
+        <a asp-controller="home" asp-action="edit" asp-route-id="@Model.data.id" class="btn btn-primary">Edit</a>
+        <a href="#" class="btn btn-danger">Delete</a>
+
+  </div>
+</div>

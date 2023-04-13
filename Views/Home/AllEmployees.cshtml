@@ -1,0 +1,37 @@
+﻿@model List<Employee>
+
+<div>
+    <div>
+        <h1>
+
+        All Employees
+        </h1>
+    </div>
+
+    <div class="flex-wrap d-flex">
+
+@{
+    foreach(var emp in Model)
+    {
+    var _photo = "~/images/" + (emp.photoPath ?? "/dp.jpg");
+     
+    <div class="card m-2" style="width: 18rem;">
+    <h4 class="card-title">@emp.name</h4>
+
+            <img src="@_photo" class="card-img-top employee-card-img" alt="..." asp-append-version="true">
+            <div class="card-body">
+                <h5 class="card-text">id: @emp.id</h5>
+                <h5 class="card-text">email: @emp.email</h5>
+                <h5 class="card-text">department: @emp.department</h5>
+                        <a asp-controller="home" asp-action="details" asp-route-id="@emp.id" class="btn btn-primary">View</a>
+                        <a asp-controller="home" asp-action="edit" asp-route-id="@emp.id" class="btn btn-primary">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+    
+            </div>
+        </div>
+        
+    }
+}
+    </div>
+</div>
+  

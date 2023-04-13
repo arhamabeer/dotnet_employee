@@ -1,0 +1,10 @@
+# .NET Core Files
+*.obj
+*.dll
+*.exe
+*.pdb
+*.user
+*.vscode
+*.vs
+bin/
+obj/

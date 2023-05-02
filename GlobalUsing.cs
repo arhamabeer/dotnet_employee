@@ -14,3 +14,8 @@ global using dotnet_mvc.Models;
 global using System.ComponentModel.DataAnnotations;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.AspNetCore.Hosting;
+global using NLog.Extensions.Logging;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using Microsoft.AspNetCore.Identity;
+
+

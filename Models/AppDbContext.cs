@@ -1,8 +1,9 @@
 ﻿
 
+
 namespace dotnet_mvc.Models
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> _dbOptions) : base(_dbOptions)
         {   
@@ -12,6 +13,7 @@ namespace dotnet_mvc.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Seed();
         }
     }

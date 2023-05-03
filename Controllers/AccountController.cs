@@ -1,5 +1,6 @@
 ﻿
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
 namespace dotnet_mvc.Controllers
@@ -20,15 +21,17 @@ namespace dotnet_mvc.Controllers
         {
             Console.WriteLine("LAYOUT" + signInManager.IsSignedIn(User));
             await signInManager.SignOutAsync(); 
-            return RedirectToAction("allEmployees", "home");
+            return RedirectToAction("login", "account");
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
         }
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -44,6 +47,37 @@ namespace dotnet_mvc.Controllers
                 {
                     ModelState.AddModelError("", $"Error when creating or signing user: {err.Description} with code: {err.Code}");
                 }
+            }
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(LoginViewModel model,string ReturnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await signInManager.PasswordSignInAsync(model.email, model.password, model.rememberMe, false);
+                if (result.Succeeded)
+                {
+                    if (!string.IsNullOrEmpty(ReturnUrl))
+                    {
+                        return Redirect(ReturnUrl);
+                    }
+                    else
+                    {
+                    return RedirectToAction("allEmployees", "home");
+                    }
+                }
+                    ModelState.AddModelError("", $"Failed to Login");
+                
             }
             return View();
         }

@@ -1,6 +1,8 @@
 //using dotnet_mvc.Models;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +28,13 @@ builder.Services.AddIdentity<IdentityUser,IdentityRole>(options =>
     })
     .AddEntityFrameworkStores<AppDbContext>();
 //builder.Services.AddMvc();
-builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
+builder.Services.AddMvc(options => {
+    // USE AUTHORIZATION POLICY TO ALLOW ONLY AUTHORIZE USER TO USE APP
+    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+    options.Filters.Add(new AuthorizeFilter(policy));
+    // USE AUTHORIZATION POLICY TO ALLOW ONLY AUTHORIZE USER TO USE APP (END)
+    options.EnableEndpointRouting = false;
+    });
 builder.Services.AddScoped<IEmployee_Repository, SqlEmployeeRepository>(); // SQL
 //builder.Services.AddSingleton<IEmployee_Repository, MockEmployeeRepository>();  // in-memory(local memory)
 

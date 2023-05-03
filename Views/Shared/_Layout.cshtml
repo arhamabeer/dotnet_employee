@@ -42,8 +42,8 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <form method="post" asp-controller="account" asp-action="Logout">
-                                    <button type="submit" class="nav-link btn btn-danger py-1" style="width: auto" asp-controller="home" asp-action="AllEmployees">
+                                <form method="post" asp-controller="account" asp-action="logout">
+                                    <button type="submit" class="nav-link btn btn-danger py-1" style="width: auto">
                                         LOGOUT: @User?.Identity?.Name?.Split("@")[0]
                                     </button>
                                 </form>

@@ -15,7 +15,7 @@ namespace dotnet_mvc.Controllers
         [Route("Error/{statusCode}")]
         public IActionResult HttpStatusCodeError(int statusCode)
         {
-            Console.WriteLine("Error Controller", statusCode);
+            Console.WriteLine("Error Controller err cont.", statusCode);
             var statusCodeResult = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
             switch (statusCode)
             {

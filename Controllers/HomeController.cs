@@ -1,5 +1,6 @@
 ﻿using dotnet_mvc.Models;
 using dotnet_mvc.ViewModels;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace dotnet_mvc.Controllers
 {
@@ -10,11 +11,14 @@ namespace dotnet_mvc.Controllers
         [Obsolete]
         private readonly Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment;
 
+        private readonly ILogger _logger;
+
         [Obsolete]
-        public HomeController(IEmployee_Repository _emp_rep, Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment)
+        public HomeController(IEmployee_Repository _emp_rep, Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment, ILogger<ErrorController> logger)
         {
              _employee_repo = _emp_rep;
             this.hostingEnvironment = hostingEnvironment;
+            _logger = logger;
         }
 
         public string Index()
@@ -32,12 +36,12 @@ namespace dotnet_mvc.Controllers
             }
         }
 
-        public ViewResult Details(int? id)
+        public ViewResult Details(int id)
         {
 
-            throw new Exception("EXCEPTION IN DETAIL ACTION xD !!!");
+            //throw new Exception("EXCEPTION IN DETAIL ACTION xD !!!");
             Console.WriteLine("_ID CHECK => " + id);
-            ResponseEmployeeRepository data = _employee_repo.getName(id??1);
+            ResponseEmployeeRepository data = _employee_repo.getName(id);
             Console.WriteLine("Data CHECK => " + data?.employee?.name);
 
             HomeDetailsViewModel hdvm = new HomeDetailsViewModel()
@@ -45,8 +49,6 @@ namespace dotnet_mvc.Controllers
                 Title = "Employee Details",
 
             };
-
-            Console.WriteLine($"data => {data.message}, {data.employee}, {data.isFind}");
             if (data.isFind)
             {
                 //return Json(data.employee);
@@ -56,6 +58,7 @@ namespace dotnet_mvc.Controllers
             else
             {
                 Response.StatusCode = 404;
+                _logger.LogWarning($"The 404 Error occured. We cannot find the requested ID in our Database.");
                 return View("Error404", id);
             }
         }

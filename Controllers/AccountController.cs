@@ -60,20 +60,20 @@ namespace dotnet_mvc.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model,string ReturnUrl)
+        public async Task<IActionResult> Login(LoginViewModel model,string? ReturnUrl)
         {
             if (ModelState.IsValid)
             {
                 var result = await signInManager.PasswordSignInAsync(model.email, model.password, model.rememberMe, false);
                 if (result.Succeeded)
                 {
-                    if (!string.IsNullOrEmpty(ReturnUrl))
+                    if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
                     {
                         return Redirect(ReturnUrl);
                     }
                     else
                     {
-                    return RedirectToAction("allEmployees", "home");
+                    return RedirectToAction("login", "account");
                     }
                 }
                     ModelState.AddModelError("", $"Failed to Login");

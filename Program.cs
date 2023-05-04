@@ -18,7 +18,7 @@ builder.Services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(
                             errorNumbersToAdd: null
                         );
                     }));
-builder.Services.AddIdentity<IdentityUser,IdentityRole>(options =>
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     {
         options.Password.RequiredUniqueChars = 0;
         options.Password.RequiredLength = 3;

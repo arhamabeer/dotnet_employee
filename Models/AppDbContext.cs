@@ -3,7 +3,7 @@
 
 namespace dotnet_mvc.Models
 {
-    public class AppDbContext : IdentityDbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> _dbOptions) : base(_dbOptions)
         {   

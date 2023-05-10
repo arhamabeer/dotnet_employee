@@ -17,5 +17,8 @@ global using Microsoft.AspNetCore.Hosting;
 global using NLog.Extensions.Logging;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using Microsoft.AspNetCore.Identity;
+global using dotnet_mvc.ViewModels;
+
+
 
 
